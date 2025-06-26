@@ -24,5 +24,9 @@
     {% if prediction %}
         <h3>Prediction: {{ prediction }}</h3>
     {% endif %}
+
+    {% if accuracy %}
+        <p>🔍 Model Accuracy: {{ (accuracy * 100) | round(2) }}%</p>
+    {% endif %}
 </body>
 </html>

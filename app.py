@@ -3,9 +3,9 @@ import pickle
 
 app = Flask(__name__)
 
-# Load model and dataset
+# Load model, iris dataset, and accuracy
 with open("iris_model.pkl", "rb") as f:
-    model, iris = pickle.load(f)
+    model, iris, accuracy = pickle.load(f)
 
 @app.route("/", methods=["GET", "POST"])
 def predict():
@@ -24,7 +24,8 @@ def predict():
         except:
             prediction = "Invalid input."
 
-    return render_template("form.html", prediction=prediction)
+    return render_template("form.html", prediction=prediction, accuracy=accuracy)
 
+# ✅ This line starts your Flask app
 if __name__ == "__main__":
     app.run(debug=True)
