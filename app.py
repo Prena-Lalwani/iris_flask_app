@@ -1,3 +1,5 @@
+import csv
+from datetime import datetime
 from flask import Flask, request, render_template
 import pickle
 
@@ -24,8 +26,30 @@ def predict():
         except:
             prediction = "Invalid input."
 
+        # ✅ Save to CSV history
+        with open("history.csv", "a", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow([
+                datetime.now().isoformat(),
+                *features,
+                prediction
+            ])
+
     return render_template("form.html", prediction=prediction, accuracy=accuracy)
 
-# ✅ This line starts your Flask app
+# ✅ History route
+@app.route("/history")
+def history():
+    rows = []
+    try:
+        with open("history.csv", newline="") as file:
+            reader = csv.reader(file)
+            rows = list(reader)
+    except FileNotFoundError:
+        pass  # No predictions yet
+
+    return render_template("history.html", rows=rows)
+
+# ✅ Start Flask app
 if __name__ == "__main__":
     app.run(debug=True)

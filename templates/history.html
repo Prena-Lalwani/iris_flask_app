@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction History</title>
+</head>
+<body>
+    <h2>📋 Iris Prediction History</h2>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Timestamp</th>
+            <th>Sepal Length</th>
+            <th>Sepal Width</th>
+            <th>Petal Length</th>
+            <th>Petal Width</th>
+            <th>Prediction</th>
+        </tr>
+        {% for row in rows %}
+        <tr>
+            {% for cell in row %}
+            <td>{{ cell }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="/">← Back to Form</a>
+</body>
+</html>
